@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Your Business — One Click Advisor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal:    #0D9488;
+    --teal-d:  #0F766E;
+    --teal-t:  #F0FDF9;
+    --teal-b:  #99F6E4;
+    --rose:    #BE123C;
+    --rose-t:  #FFF1F2;
+    --rose-b:  #FECDD3;
+    --blue:    #1D4ED8;
+    --blue-t:  #EFF6FF;
+    --blue-b:  #BFDBFE;
+    --amber:   #92400E;
+    --amber-t: #FFFBEB;
+    --ink:     #111827;
+    --ink2:    #374151;
+    --muted:   #6B7280;
+    --hint:    #9CA3AF;
+    --surf:    #F9FAFB;
+    --line:    #E5E7EB;
+    --line2:   #F3F4F6;
+    --white:   #FFFFFF;
+    --font:    'DM Sans', sans-serif;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { font-family: var(--font); color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+  /* UTILITIES */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .pill-free { background: var(--teal-t); color: var(--teal-d); border: 0.5px solid var(--teal-b); }
+  .pill-paid { background: var(--rose-t); color: var(--rose);   border: 0.5px solid var(--rose-b); }
+  .pill-book { background: var(--blue-t); color: var(--blue);   border: 0.5px solid var(--blue-b); }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .sec-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -.3px;
+    margin-bottom: 6px;
+  }
+  .sec-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 580px;
+  }
+
+  .btn-primary {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .15s;
+  }
+  .btn-primary:hover { background: var(--teal-d); }
+
+  .btn-outline {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--teal);
+    border: 0.5px solid var(--teal);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .15s;
+  }
+  .btn-outline:hover { background: var(--teal-t); }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    background: var(--white);
+    border-bottom: 0.5px solid var(--line);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 30px; height: 30px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-mark svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .logo-text { font-size: 17px; font-weight: 500; letter-spacing: -.35px; color: var(--ink); }
+  .logo-text span { color: var(--teal); }
+  .nav-links { display: flex; gap: 2px; }
+  .nav-links a { font-size: 14px; color: var(--muted); padding: 7px 12px; border-radius: 7px; text-decoration: none; transition: color .15s, background .15s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--ink); background: var(--surf); }
+  .nav-links a.active { color: var(--teal); font-weight: 500; }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-login { font-size: 14px; color: var(--muted); text-decoration: none; }
+  .nav-login:hover { color: var(--ink); }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--teal-t);
+    border-bottom: 0.5px solid var(--teal-b);
+    padding: 48px 40px 40px;
+  }
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--hint);
+    margin-bottom: 16px;
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--teal); }
+  .breadcrumb span { color: var(--hint); }
+  .page-header h1 {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -.5px;
+    margin-bottom: 10px;
+  }
+  .page-header p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 520px;
+    margin-bottom: 24px;
+  }
+  .header-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* JUMP NAV */
+  .jump-nav {
+    background: var(--white);
+    border-bottom: 0.5px solid var(--line);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .jump-link {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 14px 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  .jump-link:hover { color: var(--ink); }
+  .jump-link.active { color: var(--teal); border-bottom-color: var(--teal); font-weight: 500; }
+
+  /* CONTENT SECTIONS */
+  .content-section {
+    padding: 52px 40px;
+    border-bottom: 0.5px solid var(--line);
+  }
+  .content-section.surf { background: var(--surf); }
+  .content-section.white { background: var(--white); }
+  .content-section.teal-tint { background: var(--teal-t); border-bottom: 0.5px solid var(--teal-b); }
+
+  /* SERVICES GRID */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .svc-card {
+    background: var(--white);
+    border: 0.5px solid var(--line);
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .svc-card:hover {
+    border-color: var(--teal-b);
+    box-shadow: 0 2px 12px rgba(13,148,136,.07);
+  }
+  .svc-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .svc-icon {
+    width: 38px; height: 38px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 12px;
+  }
+  .svc-icon svg { width: 19px; height: 19px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .si-rose { background: var(--rose-t); }
+  .si-rose svg { stroke: var(--rose); }
+  .si-teal { background: var(--teal-t); }
+  .si-teal svg { stroke: var(--teal); }
+  .si-blue { background: var(--blue-t); }
+  .si-blue svg { stroke: var(--blue); }
+  .si-amber { background: var(--amber-t); }
+  .si-amber svg { stroke: var(--amber); }
+  .svc-name { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .svc-desc { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 16px; }
+  .svc-price { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 14px; }
+  .svc-price span { font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 4px; }
+  .svc-link {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--teal);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+  }
+  .svc-link:hover { color: var(--teal-d); }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .tool-card {
+    background: var(--white);
+    border: 0.5px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    cursor: pointer;
+    transition: border-color .15s;
+    text-decoration: none;
+  }
+  .tool-card:hover { border-color: var(--teal-b); }
+  .tool-glyph {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: var(--teal-t);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 500;
+    color: var(--teal-d);
+    flex-shrink: 0;
+    font-family: monospace;
+  }
+  .tool-body { flex: 1; }
+  .tool-title { font-size: 14px; font-weight: 500; color: var(--ink); margin: 7px 0 5px; }
+  .tool-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* RESOURCE CARDS */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .resource-card {
+    background: var(--white);
+    border: 0.5px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    text-decoration: none;
+    transition: border-color .15s;
+  }
+  .resource-card:hover { border-color: var(--teal-b); }
+  .resource-icon {
+    width: 38px; height: 38px;
+    border-radius: 9px;
+    background: var(--teal-t);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .resource-icon svg { width: 18px; height: 18px; stroke: var(--teal); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .resource-body { flex: 1; }
+  .resource-title { font-size: 14px; font-weight: 500; color: var(--ink); margin: 6px 0 4px; }
+  .resource-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ARTICLE GRID */
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .article-card {
+    background: var(--white);
+    border: 0.5px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    text-decoration: none;
+    transition: border-color .15s;
+    display: flex;
+    flex-direction: column;
+  }
+  .article-card:hover { border-color: var(--teal-b); }
+  .article-cat {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--rose);
+    margin-bottom: 8px;
+  }
+  .article-title { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.45; margin-bottom: 8px; }
+  .article-meta { font-size: 12px; color: var(--hint); margin-bottom: 10px; }
+  .article-excerpt { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 12px; }
+  .article-link { font-size: 13px; font-weight: 500; color: var(--teal); }
+
+  /* EXPERT CTA STRIP */
+  .expert-strip {
+    background: var(--teal);
+    border-radius: 12px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .es-title { font-size: 17px; font-weight: 500; color: #fff; margin-bottom: 5px; }
+  .es-sub { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.55; max-width: 460px; }
+  .btn-expert {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 11px 22px;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--teal-d);
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: background .15s;
+  }
+  .btn-expert:hover { background: var(--teal-t); }
+
+  /* PRODUCT CARD */
+  .product-card {
+    background: var(--white);
+    border: 0.5px solid var(--line);
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    max-width: 520px;
+  }
+  .product-cover {
+    width: 80px; height: 100px;
+    background: var(--blue-t);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px; font-weight: 500; color: var(--blue);
+    text-align: center; padding: 8px;
+    line-height: 1.3;
+  }
+  .product-name { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
+  .product-author { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .product-price { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 12px; }
+  .stars { font-size: 13px; color: #F59E0B; margin-bottom: 8px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+  .footer-mark { width: 24px; height: 24px; background: var(--teal); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .footer-mark svg { width: 13px; height: 13px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .footer-name { font-size: 13px; color: rgba(255,255,255,.4); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,.3); text-decoration: none; }
+  .footer-links a:hover { color: rgba(255,255,255,.6); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .page-header { padding: 36px 20px 28px; }
+    .content-section { padding: 40px 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .tools-grid, .resources-grid, .article-grid { grid-template-columns: 1fr; }
+    .expert-strip { flex-direction: column; text-align: center; }
+    footer { flex-direction: column; gap: 16px; padding: 24px 20px; }
+    .jump-nav { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/index.html" class="logo">
+    <div class="logo-mark"><svg viewBox="0 0 16 16"><path d="M2 9L6 13L14 4"/></svg></div>
+    <div class="logo-text">one<span>click</span>advisor</div>
+  </a>
+  <div class="nav-links">
+    <a href="/index.html">Tools and resources</a>
+    <a href="/oca_start_your_business.html" class="active">Start a business</a>
+    <a href="#">Market</a>
+    <a href="#">Finance</a>
+    <a href="/referral-network-listing">Find an expert</a>
+  </div>
+  <div class="nav-right">
+    <a href="/my-account" class="nav-login">My account</a>
+    <a href="/build-your-business" class="btn-primary">Get started free</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="/index.html">Home</a>
+    <span>/</span>
+    <span>Start your business</span>
+  </div>
+  <h1>Start your business</h1>
+  <p>Everything you need to go from idea to official — legal setup, entity formation, planning tools, and free knowledge resources, all in one place.</p>
+  <div class="header-pills">
+    <span class="pill pill-free">Free resources available</span>
+    <span class="pill pill-paid">Paid filing services</span>
+    <span class="pill pill-book">Expert consultations</span>
+  </div>
+</div>
+
+<!-- JUMP NAV -->
+<div class="jump-nav">
+  <a href="#filing-services" class="jump-link active">Filing services</a>
+  <a href="#free-tools" class="jump-link">Free tools</a>
+  <a href="#free-resources" class="jump-link">Free resources</a>
+  <a href="#knowledge-base" class="jump-link">Articles</a>
+  <a href="#find-expert" class="jump-link">Talk to an expert</a>
+</div>
+
+<!-- FILING SERVICES -->
+<div class="content-section white" id="filing-services">
+  <div class="eyebrow">Paid filing services</div>
+  <div class="sec-title">Professional formation services</div>
+  <div class="sec-sub">All incorporation and LLC services are handled by licensed attorneys selected for their expertise and experience in small business formation. Prices shown are service fees — state filing fees are separate and vary by state.</div>
+
+  <div class="services-grid">
+
+    <div class="svc-card">
+      <div class="svc-icon si-rose">
+        <svg viewBox="0 0 19 19"><rect x="2" y="3" width="15" height="13" rx="2"/><path d="M6 3V1M13 3V1M2 8h15"/></svg>
+      </div>
+      <div class="svc-card-top">
+        <span class="svc-name">Form an LLC</span>
+        <span class="pill pill-paid">Paid</span>
+      </div>
+      <div class="svc-desc">Register your business as a Limited Liability Company. We prepare your articles of organization, check name availability across all three of your proposed names, and file with the state on your behalf.</div>
+      <div class="svc-price">$250 <span>service fee, state fees extra</span></div>
+      <a href="/limited-liability-company" class="btn-primary" style="align-self:flex-start">Start LLC registration</a>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon si-blue">
+        <svg viewBox="0 0 19 19"><rect x="2" y="2" width="15" height="15" rx="2"/><path d="M7 9.5l2 2 3-3"/></svg>
+      </div>
+      <div class="svc-card-top">
+        <span class="svc-name">Incorporate online</span>
+        <span class="pill pill-paid">Paid</span>
+      </div>
+      <div class="svc-desc">Form a C-Corp or S-Corp with attorney guidance. Incorporation is the right structure for businesses seeking investment, issuing stock, or planning significant growth.</div>
+      <div class="svc-price">See pricing</div>
+      <a href="/incorporation" class="btn-primary" style="align-self:flex-start">View incorporation options</a>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon si-teal">
+        <svg viewBox="0 0 19 19"><path d="M9.5 2l2.2 5h5.3l-4.3 3.1 1.6 5.2-4.8-3.4-4.8 3.4 1.6-5.2L2 7h5.3z"/></svg>
+      </div>
+      <div class="svc-card-top">
+        <span class="svc-name">Business plan writing</span>
+        <span class="pill pill-paid">Paid</span>
+      </div>
+      <div class="svc-desc">A professionally written business plan for investors, lenders, or your own strategic clarity. Includes market analysis and financial projections tailored to your industry.</div>
+      <div class="svc-price">See pricing</div>
+      <a href="/business-plan-writing" class="btn-primary" style="align-self:flex-start">View details</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FREE TOOLS -->
+<div class="content-section surf" id="free-tools">
+  <div class="eyebrow">Free tools</div>
+  <div class="sec-title">Use these now — no account, no signup</div>
+  <div class="sec-sub">These tools are completely free to use. Open any of them and get to work immediately.</div>
+
+  <div class="tools-grid">
+
+    <a href="/trademark-search" class="tool-card">
+      <div class="tool-glyph">TM</div>
+      <div class="tool-body">
+        <span class="pill pill-free">Free</span>
+        <div class="tool-title">Trademark search</div>
+        <div class="tool-desc">Check whether your business name, brand, or logo is already trademarked before you file or launch. Avoid costly legal disputes by searching first.</div>
+      </div>
+    </a>
+
+    <a href="/one-click-advisor-business-glossary" class="tool-card">
+      <div class="tool-glyph">ABC</div>
+      <div class="tool-body">
+        <span class="pill pill-free">Free</span>
+        <div class="tool-title">Business glossary</div>
+        <div class="tool-desc">200+ business and legal terms explained in plain language. No jargon. Essential reading for anyone forming their first entity.</div>
+      </div>
+    </a>
+
+    <a href="/free-video-advantages-and-disadvantages-of-corporations" class="tool-card">
+      <div class="tool-glyph" style="font-size:11px">LLC vs Corp</div>
+      <div class="tool-body">
+        <span class="pill pill-free">Free video</span>
+        <div class="tool-title">LLC vs corporation: which is right for you?</div>
+        <div class="tool-desc">A free video walkthrough of the key differences between LLCs and corporations — structure, taxes, liability, and when each makes sense.</div>
+      </div>
+    </a>
+
+    <a href="/free-video-managing-your-prices" class="tool-card">
+      <div class="tool-glyph" style="font-size:11px">Pricing</div>
+      <div class="tool-body">
+        <span class="pill pill-free">Free video</span>
+        <div class="tool-title">Managing your prices</div>
+        <div class="tool-desc">Learn how to set, test, and adjust pricing for your business. A practical free video covering margin, positioning, and common pricing mistakes.</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- FREE RESOURCES / KNOWLEDGE -->
+<div class="content-section white" id="free-resources">
+  <div class="eyebrow">Free resources</div>
+  <div class="sec-title">Guides, courses, and knowledge — at no cost</div>
+  <div class="sec-sub">Everything below is free to access. No payment, no signup wall.</div>
+
+  <div class="resources-grid">
+
+    <a href="/startup-and-small-business-knowledge" class="resource-card">
+      <div class="resource-icon">
+        <svg viewBox="0 0 18 18"><path d="M3 4h12M3 8h8M3 12h10"/></svg>
+      </div>
+      <div class="resource-body">
+        <span class="pill pill-free">Free</span>
+        <div class="resource-title">Startup and small business knowledge base</div>
+        <div class="resource-desc">A comprehensive library of articles, guides, and explainers covering every aspect of starting and running a business.</div>
+      </div>
+    </a>
+
+    <a href="/start-strong-courses" class="resource-card">
+      <div class="resource-icon">
+        <svg viewBox="0 0 18 18"><rect x="2" y="3" width="14" height="10" rx="2"/><path d="M6 16h6M9 13v3"/></svg>
+      </div>
+      <div class="resource-body">
+        <span class="pill pill-free">Free</span>
+        <div class="resource-title">Start Strong courses</div>
+        <div class="resource-desc">Short video courses on the fundamentals of starting and operating a business. Built for founders who want practical, not theoretical, guidance.</div>
+      </div>
+    </a>
+
+    <a href="/three-stages" class="resource-card">
+      <div class="resource-icon">
+        <svg viewBox="0 0 18 18"><circle cx="4" cy="9" r="2"/><circle cx="9" cy="9" r="2"/><circle cx="14" cy="9" r="2"/></svg>
+      </div>
+      <div class="resource-body">
+        <span class="pill pill-free">Free</span>
+        <div class="resource-title">The three stages of business</div>
+        <div class="resource-desc">Understand which stage your business is in — startup, growth, or mature — and what your priorities should be at each stage.</div>
+      </div>
+    </a>
+
+    <a href="/faq" class="resource-card">
+      <div class="resource-icon">
+        <svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7"/><path d="M9 8c0-1.1.9-2 2-2s2 .9 2 2-2 2-2 3M9 13.5v.5"/></svg>
+      </div>
+      <div class="resource-body">
+        <span class="pill pill-free">Free</span>
+        <div class="resource-title">Frequently asked questions</div>
+        <div class="resource-desc">Answers to the most common questions about business formation, legal structure, LLC vs corporation, and using our services.</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- BOOKS / PRODUCTS -->
+<div class="content-section surf">
+  <div class="eyebrow">Books and products</div>
+  <div class="sec-title">Written by James Chittenden</div>
+  <div class="sec-sub">Practical books and resources drawn from years of working with startup and small business owners.</div>
+
+  <div class="product-card">
+    <div class="product-cover">Business Planning Simplified</div>
+    <div>
+      <div class="product-name">Business Planning Simplified</div>
+      <div class="product-author">By James Chittenden</div>
+      <div class="stars">★★★★★</div>
+      <div class="product-price">$0.99</div>
+      <a href="/product/business-planning-simplified/" class="btn-primary">Add to cart</a>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <a href="/product-category/legal-and-planning/" class="btn-outline">View all legal and planning products</a>
+  </div>
+</div>
+
+<!-- ARTICLES -->
+<div class="content-section white" id="knowledge-base">
+  <div class="eyebrow">Articles</div>
+  <div class="sec-title">Legal and planning knowledge base</div>
+  <div class="sec-sub">Free articles on legal risks, compliance, planning, and what to know before you file.</div>
+
+  <div class="article-grid">
+
+    <a href="/how-entrepreneurs-can-navigate-legal-risks-and-build-strong-startups/" class="article-card">
+      <div class="article-cat">Legal</div>
+      <div class="article-title">How entrepreneurs can navigate legal risks and build strong startups</div>
+      <div class="article-meta">Mar 8, 2026 — By Derek Goodman</div>
+      <div class="article-excerpt">For early-stage entrepreneurs, the hardest part often is not the product. It is staying ahead of startup legal challenges that show up quietly and then demand attention all at once.</div>
+      <span class="article-link">Read article</span>
+    </a>
+
+    <a href="/ai-and-business-loans-still-our-servant-not-yet-our-master/" class="article-card">
+      <div class="article-cat">Finance</div>
+      <div class="article-title">AI and business loans: still our servant, not yet our master</div>
+      <div class="article-meta">Jan 30, 2026 — By James Chittenden</div>
+      <div class="article-excerpt">AI is rapidly changing how lenders evaluate small business loans. Understanding what it can and cannot do gives you a real advantage when seeking funding.</div>
+      <span class="article-link">Read article</span>
+    </a>
+
+    <a href="/from-staying-relevant-to-winning-big-how-to-get-big-results-through-creative-marketing/" class="article-card">
+      <div class="article-cat">Marketing</div>
+      <div class="article-title">How small businesses can stay relevant with creative marketing</div>
+      <div class="article-meta">Dec 27, 2025 — By Derek Goodman</div>
+      <div class="article-excerpt">Small business owners face a familiar challenge: staying visible and interesting without a large marketing budget. Here is what actually works.</div>
+      <span class="article-link">Read article</span>
+    </a>
+
+    <a href="/local-businesses-and-economic-change-practical-ways-to-stay-steady-when-the-ground-moves/" class="article-card">
+      <div class="article-cat">Operations</div>
+      <div class="article-title">Local businesses and economic change: practical ways to stay steady</div>
+      <div class="article-meta">Nov 20, 2025 — By Derek Goodman</div>
+      <div class="article-excerpt">Local businesses everywhere face the same truth: economic conditions shift without warning. These are the practical moves that keep you stable when the ground moves.</div>
+      <span class="article-link">Read article</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- EXPERT CTA -->
+<div class="content-section teal-tint" id="find-expert">
+  <div class="expert-strip">
+    <div>
+      <div class="es-title">Have questions? Talk to an expert.</div>
+      <div class="es-sub">James and the One Click Advisor referral network are available to answer your formation questions, review your situation, and point you in the right direction — no runaround.</div>
+    </div>
+    <a href="/referral-network-listing" class="btn-expert">Browse experts</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="/index.html" class="footer-logo">
+    <div class="footer-mark"><svg viewBox="0 0 13 13"><path d="M2 7L5.5 10.5L11 3.5"/></svg></div>
+    <span class="footer-name">oneclickadvisor.com</span>
+  </a>
+  <div class="footer-links">
+    <a href="/privacy-policy">Privacy</a>
+    <a href="/refund-policy">Refund policy</a>
+    <a href="/how-we-fund-our-services/">Affiliate disclosure</a>
+    <a href="/contact-us">Contact</a>
+  </div>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const jumpLinks = document.querySelectorAll('.jump-link');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    jumpLinks.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
